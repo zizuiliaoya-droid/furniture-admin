@@ -1,0 +1,94 @@
+/* Bauhaus-inspired global styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", "Noto Sans SC", -apple-system, sans-serif;
+  background-color: #fafaf8;
+  color: #343a40;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "DM Sans", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+}
+
+/* Monospace for numbers and codes */
+.font-mono {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Micro-interaction: Button press */
+.ant-btn {
+  transition: all 0.15s ease-out !important;
+}
+.ant-btn:active {
+  transform: scale(0.97) !important;
+}
+
+/* Micro-interaction: Card hover */
+.ant-card {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out !important;
+}
+.ant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Soft shadow system */
+.shadow-1 {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+}
+.shadow-2 {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+}
+.shadow-3 {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Page transition */
+.page-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e9ecef;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6c757d;
+}
+
+/* Ant Design overrides for Bauhaus feel */
+.ant-layout-sider {
+  border-right: 1px solid #e9ecef !important;
+}
+
+.ant-table-thead > tr > th {
+  font-family: "DM Sans", "Noto Sans SC", sans-serif !important;
+  font-weight: 600 !important;
+}
+
+.ant-modal-content {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08) !important;
+}
