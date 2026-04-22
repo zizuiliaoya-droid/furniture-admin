@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-  Table, Button, Modal, Form, Input, Select, Tag, Space, message, Switch,
+  Table, Button, Modal, Form, Input, Select, Tag, message, Switch,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import authService, { type User } from "../../services/authService";

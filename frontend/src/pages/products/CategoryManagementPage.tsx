@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Tree, Button, Modal, Form, Input, Select, Space, message, Popconfirm, Tabs } from "antd";
+import { Tree, Button, Modal, Form, Input, Space, message, Popconfirm, Tabs } from "antd";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import productService, { type Category } from "../../services/productService";
 
-const dimensionLabels: Record<string, string> = { TYPE: "按类型", SPACE: "按空间", ORIGIN: "按产地" };
+const dimensionLabels: Record<string, string> = { TYPE: "产品类别", BRAND: "品牌" };
 
 export default function CategoryManagementPage() {
-  const [dimension, setDimension] = useState("TYPE");
+  const [dimension, setDimension] = useState<"TYPE" | "SPACE" | "ORIGIN">("TYPE");
   const [treeData, setTreeData] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [parentId, setParentId] = useState<number | null>(null);
   const [form] = Form.useForm();
@@ -59,10 +59,8 @@ export default function CategoryManagementPage() {
     }
   };
 
-  const handleDrop = async (info: any) => {
-    const dropKey = info.node.key;
-    const dragKey = info.dragNode.key;
-    // Simple reorder: update sort_order based on new position
+  const handleDrop = async (_info: any) => {
+    // Reorder based on current tree state
     const flatNodes = treeData.flatMap((n) => [n, ...(n.children || [])]);
     const reorderData = flatNodes.map((n, i) => ({ id: n.id, sort_order: i }));
     await productService.reorderCategories(reorderData);
@@ -77,7 +75,7 @@ export default function CategoryManagementPage() {
   return (
     <div>
       <h2 style={{ fontFamily: '"DM Sans", sans-serif', marginBottom: 16 }}>分类管理</h2>
-      <Tabs activeKey={dimension} onChange={setDimension} items={tabItems} />
+      <Tabs activeKey={dimension} onChange={(key) => setDimension(key as "TYPE" | "SPACE" | "ORIGIN")} items={tabItems} />
       <Button
         type="primary"
         icon={<PlusOutlined />}

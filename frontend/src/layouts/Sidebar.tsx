@@ -5,7 +5,6 @@ import {
   PictureOutlined,
   ProjectOutlined,
   FileOutlined,
-  FileTextOutlined,
   SafetyCertificateOutlined,
   DollarOutlined,
   ShareAltOutlined,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Input, Button, Descriptions, Table, Image, Tag, Space, message, Result } from "antd";
+import { Card, Input, Button, message, Result } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import shareService from "../../services/shareService";

@@ -29,32 +29,13 @@ function Loading() {
   );
 }
 
-// Placeholder for future pages
-function PlaceholderPage({ title }: { title: string }) {
-  return (
-    <div style={{ padding: 24 }}>
-      <h2 style={{ fontFamily: '"DM Sans", sans-serif' }}>{title}</h2>
-      <p style={{ color: "#6c757d" }}>此页面将在后续单元中实现</p>
-    </div>
-  );
-}
-
 export default function App() {
   return (
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-
-          {/* Protected routes */}
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <MainLayout />
-              </ProtectedRoute>
-            }
-          >
+          <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
             <Route index element={<Navigate to="/products" replace />} />
             <Route path="products" element={<ProductListPage />} />
             <Route path="products/new" element={<ProtectedRoute requireAdmin><ProductFormPage /></ProtectedRoute>} />
@@ -74,20 +55,9 @@ export default function App() {
             <Route path="quotes/:id" element={<QuoteDetailPage />} />
             <Route path="quotes/:id/edit" element={<QuoteFormPage />} />
             <Route path="shares" element={<ShareManagementPage />} />
-            <Route
-              path="users"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <UserManagementPage />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="users" element={<ProtectedRoute requireAdmin><UserManagementPage /></ProtectedRoute>} />
           </Route>
-
-          {/* Public share page */}
           <Route path="/s/:token" element={<ShareViewPage />} />
-
-          {/* Catch all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>

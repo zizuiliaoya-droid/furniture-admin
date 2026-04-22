@@ -1,28 +1,37 @@
 import { useEffect, useState } from "react";
-import { Card, Row, Col, Input, Tree, Pagination, Empty, Spin } from "antd";
+import { Card, Row, Col, Input, Tree, Pagination, Empty, Spin, Typography, Divider } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import catalogService from "../../services/catalogService";
 import productService, { type Product, type Category, type PaginatedResponse } from "../../services/productService";
+
+const { Text } = Typography;
 
 export default function CatalogPage() {
   const [data, setData] = useState<PaginatedResponse<Product>>({ count: 0, next: null, previous: null, results: [] });
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [categoryTree, setCategoryTree] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>();
+  const [typeTree, setTypeTree] = useState<Category[]>([]);
+  const [brandTree, setBrandTree] = useState<Category[]>([]);
+  const [checkedTypeKeys, setCheckedTypeKeys] = useState<string[]>([]);
+  const [checkedBrandKeys, setCheckedBrandKeys] = useState<string[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    productService.getCategoryTree("TYPE").then(({ data }) => setCategoryTree(data));
+    productService.getCategoryTree("TYPE").then(({ data }) => setTypeTree(data));
+    productService.getCategoryTree("BRAND").then(({ data }) => setBrandTree(data));
   }, []);
+
+  const allCheckedKeys = [...checkedTypeKeys, ...checkedBrandKeys];
 
   const fetchData = async () => {
     setLoading(true);
     try {
       const params: Record<string, string> = { page: String(page) };
-      if (selectedCategory) params.category = selectedCategory;
+      if (allCheckedKeys.length > 0) {
+        params.categories = allCheckedKeys.join(",");
+      }
       if (search) {
         const { data: res } = await catalogService.search(search);
         setData(res);
@@ -35,11 +44,12 @@ export default function CatalogPage() {
     }
   };
 
-  useEffect(() => { fetchData(); }, [page, selectedCategory]);
+  useEffect(() => { fetchData(); }, [page, checkedTypeKeys, checkedBrandKeys]);
 
   const mapTree = (nodes: Category[]): any[] =>
     nodes.map((n) => ({
-      title: n.name, key: String(n.id),
+      title: n.name,
+      key: String(n.id),
       children: n.children ? mapTree(n.children) : [],
     }));
 
@@ -47,9 +57,9 @@ export default function CatalogPage() {
     <div>
       <h2 style={{ fontFamily: '"DM Sans", sans-serif', marginBottom: 16 }}>产品图册</h2>
       <div style={{ display: "flex", gap: 24 }}>
-        <div style={{ width: 220, flexShrink: 0 }}>
+        <div style={{ width: 260, flexShrink: 0 }}>
           <Input
-            placeholder="搜索产品..."
+            placeholder="搜索名称、编号、材质、尺寸..."
             prefix={<SearchOutlined />}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -57,10 +67,29 @@ export default function CatalogPage() {
             allowClear
             style={{ marginBottom: 16 }}
           />
+
+          <Text strong style={{ fontSize: 13, color: "#6c757d", display: "block", marginBottom: 8 }}>
+            产品类别
+          </Text>
           <Tree
-            treeData={mapTree(categoryTree)}
-            onSelect={(keys) => { setSelectedCategory(keys[0] as string); setPage(1); }}
-            selectedKeys={selectedCategory ? [selectedCategory] : []}
+            treeData={mapTree(typeTree)}
+            checkable
+            checkedKeys={checkedTypeKeys}
+            onCheck={(keys) => { setCheckedTypeKeys(keys as string[]); setPage(1); }}
+            defaultExpandAll
+            style={{ marginBottom: 8 }}
+          />
+
+          <Divider style={{ margin: "12px 0" }} />
+
+          <Text strong style={{ fontSize: 13, color: "#6c757d", display: "block", marginBottom: 8 }}>
+            品牌
+          </Text>
+          <Tree
+            treeData={mapTree(brandTree)}
+            checkable
+            checkedKeys={checkedBrandKeys}
+            onCheck={(keys) => { setCheckedBrandKeys(keys as string[]); setPage(1); }}
             defaultExpandAll
           />
         </div>
@@ -89,7 +118,7 @@ export default function CatalogPage() {
                             </div>
                           )
                         }
-                        bodyStyle={{ padding: 12 }}
+                        styles={{ body: { padding: 12 } }}
                       >
                         <Card.Meta
                           title={<span style={{ fontSize: 14 }}>{product.name}</span>}

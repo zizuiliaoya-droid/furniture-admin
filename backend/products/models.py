@@ -4,9 +4,8 @@ from django.conf import settings
 
 class Category(models.Model):
     DIMENSION_CHOICES = [
-        ("TYPE", "按类型"),
-        ("SPACE", "按空间"),
-        ("ORIGIN", "按产地"),
+        ("TYPE", "产品类别"),
+        ("BRAND", "品牌"),
     ]
 
     name = models.CharField("分类名称", max_length=100)

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Form, Input, Select, InputNumber, Switch, Button, TreeSelect, message, Card, Upload } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Form, Input, Select, InputNumber, Switch, Button, TreeSelect, message, Card } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import productService, { type Category } from "../../services/productService";
 
@@ -12,10 +11,12 @@ export default function ProductFormPage() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [categoryTree, setCategoryTree] = useState<Category[]>([]);
+  const [brandTree, setBrandTree] = useState<Category[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     productService.getCategoryTree("TYPE").then(({ data }) => setCategoryTree(data));
+    productService.getCategoryTree("BRAND").then(({ data }) => setBrandTree(data));
     if (isEdit) {
       productService.getProduct(Number(id)).then(({ data }) => {
         form.setFieldsValue({
@@ -76,11 +77,11 @@ export default function ProductFormPage() {
           <Form.Item name="min_price" label="最低售价">
             <InputNumber style={{ width: "100%" }} min={0} precision={2} prefix="¥" />
           </Form.Item>
-          <Form.Item name="category" label="主分类">
-            <TreeSelect treeData={mapTreeData(categoryTree)} placeholder="选择分类" allowClear />
+          <Form.Item name="category" label="产品类别（主分类）">
+            <TreeSelect treeData={mapTreeData(categoryTree)} placeholder="选择产品类别" allowClear />
           </Form.Item>
-          <Form.Item name="category_ids" label="关联分类">
-            <TreeSelect treeData={mapTreeData(categoryTree)} placeholder="选择关联分类" multiple allowClear treeCheckable />
+          <Form.Item name="category_ids" label="关联分类（可多选，含品牌）">
+            <TreeSelect treeData={[...mapTreeData(categoryTree), ...mapTreeData(brandTree)]} placeholder="选择关联分类" multiple allowClear treeCheckable />
           </Form.Item>
           <Form.Item name="is_active" label="上架状态" valuePropName="checked">
             <Switch checkedChildren="上架" unCheckedChildren="下架" />

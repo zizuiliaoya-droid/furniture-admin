@@ -32,3 +32,7 @@ docker-compose.override.yml
 
 # AI-DLC docs (optional: remove if you want to track)
 # aidlc-docs/
+
+# Playwright
+frontend/test-results/
+frontend/playwright-report/
