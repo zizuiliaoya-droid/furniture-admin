@@ -145,3 +145,105 @@ h1, h2, h3, h4, h5, h6 {
 .ant-input-affix-wrapper:focus-within {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06), 0 0 15px rgba(100, 100, 255, 0.06) !important;
 }
+
+/* ===== GSAP Breathing System ===== */
+
+/* Sidebar menu item hover: subtle lift */
+.ant-menu-item {
+  transition: all 0.2s ease-out !important;
+}
+.ant-menu-item:hover {
+  transform: translateX(2px);
+}
+
+/* Card title subtle underline animation */
+.ant-card-head-title {
+  position: relative;
+}
+.ant-card-head-title::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #000;
+  transition: width 0.3s ease-out;
+}
+.ant-card:hover .ant-card-head-title::after {
+  width: 40px;
+}
+
+/* Tag hover micro-scale */
+.ant-tag {
+  transition: transform 0.15s ease-out !important;
+}
+.ant-tag:hover {
+  transform: scale(1.05);
+}
+
+/* Button ripple-like feedback */
+.ant-btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.ant-btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.2) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.ant-btn-primary:hover::after {
+  opacity: 1;
+}
+
+/* Breadcrumb / page title entrance */
+h2 {
+  position: relative;
+}
+
+/* Pagination hover */
+.ant-pagination-item {
+  transition: all 0.2s ease-out !important;
+}
+.ant-pagination-item:hover {
+  transform: translateY(-1px);
+}
+
+/* Switch toggle smooth */
+.ant-switch {
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Avatar pulse on hover */
+.ant-avatar {
+  transition: box-shadow 0.3s ease !important;
+}
+.ant-avatar:hover {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Tree node hover indent */
+.ant-tree-treenode {
+  transition: padding-left 0.15s ease-out !important;
+}
+.ant-tree-treenode:hover {
+  padding-left: 2px !important;
+}
+
+/* Input focus transition enhancement */
+.ant-input, .ant-input-affix-wrapper, .ant-select-selector {
+  transition: all 0.25s ease-out !important;
+}
+
+/* Skeleton breathing (for loading states) */
+.ant-skeleton-content .ant-skeleton-paragraph > li {
+  animation: skeletonBreathe 1.5s ease-in-out infinite !important;
+}
+@keyframes skeletonBreathe {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}

@@ -6,6 +6,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 import Sidebar from "./Sidebar";
 import GlobalSearch from "../components/GlobalSearch";
+import AnimationProvider from "../components/AnimationProvider";
 import "./MainLayout.css";
 
 const { Header, Content, Sider } = Layout;
@@ -64,7 +65,9 @@ export default function MainLayout() {
           margin: 24, padding: 24, background: "#fff", borderRadius: 4,
           boxShadow: "0 2px 20px rgba(0,0,0,0.04)", minHeight: 280,
         }}>
-          <Outlet />
+          <AnimationProvider>
+            <Outlet />
+          </AnimationProvider>
         </Content>
       </Layout>
     </Layout>

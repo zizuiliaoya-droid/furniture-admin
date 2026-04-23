@@ -5,6 +5,7 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/authStore";
+import { usePageAnimation } from "../../hooks/usePageAnimation";
 import "./DashboardPage.css";
 
 const { Text } = Typography;
@@ -28,9 +29,10 @@ export default function DashboardPage() {
   const { user } = useAuthStore();
   const navigate = useNavigate();
   const isAdmin = user?.role === "ADMIN";
+  const pageRef = usePageAnimation();
 
   return (
-    <div className="dashboard">
+    <div className="dashboard" ref={pageRef}>
       <div className="dashboard-greeting">
         <h1 className="greeting-text">{getGreeting()}，{user?.display_name}</h1>
         <Text type="secondary">欢迎回到家具软装管理平台</Text>

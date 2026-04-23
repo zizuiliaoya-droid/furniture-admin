@@ -1,5 +1,6 @@
 import { Menu } from "antd";
 import {
+  HomeOutlined,
   AppstoreOutlined,
   TagsOutlined,
   PictureOutlined,
@@ -21,6 +22,11 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
   const isAdmin = user?.role === "ADMIN";
 
   const menuItems = [
+    {
+      key: "/",
+      icon: <HomeOutlined />,
+      label: "首页",
+    },
     {
       key: "/products",
       icon: <AppstoreOutlined />,
@@ -77,9 +83,10 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
   ];
 
   const selectedKey =
+    location.pathname === "/" ? "/" :
     menuItems
       .flatMap((item) => ("children" in item ? item.children ?? [] : [item]))
-      .find((item) => location.pathname.startsWith(item.key))?.key ||
+      .find((item) => item.key !== "/" && location.pathname.startsWith(item.key))?.key ||
     location.pathname;
 
   return (
