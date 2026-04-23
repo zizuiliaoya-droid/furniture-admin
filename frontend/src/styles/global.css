@@ -1,4 +1,8 @@
-/* Bauhaus-inspired global styles */
+/**
+ * Global styles — UI Pro Max optimized
+ * Palette: Architecture/Interior (black + gold accent, warm background)
+ * Typography: Poppins (headings) + Open Sans (body) + Noto Sans SC (CJK)
+ */
 
 * {
   margin: 0;
@@ -7,24 +11,25 @@
 }
 
 body {
-  font-family: "Inter", "Noto Sans SC", -apple-system, sans-serif;
-  background-color: #fafaf8;
-  color: #343a40;
+  font-family: "Open Sans", "Noto Sans SC", -apple-system, sans-serif;
+  background-color: #FAF5F2;
+  color: #0F172A;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "DM Sans", "Noto Sans SC", sans-serif;
+  font-family: "Poppins", "Noto Sans SC", sans-serif;
   font-weight: 600;
+  color: #171717;
 }
 
-/* Monospace for numbers and codes */
 .font-mono {
   font-family: "JetBrains Mono", monospace;
 }
 
-/* Micro-interaction: Button press */
+/* ===== Micro-interactions ===== */
+
 .ant-btn {
   transition: all 0.15s ease-out !important;
 }
@@ -32,74 +37,22 @@ h1, h2, h3, h4, h5, h6 {
   transform: scale(0.97) !important;
 }
 
-/* Micro-interaction: Card hover */
 .ant-card {
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out !important;
 }
 .ant-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Soft shadow system */
-.shadow-1 {
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
-}
-.shadow-2 {
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
-}
-.shadow-3 {
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
-}
+/* ===== Table enhancements ===== */
 
-/* Page transition */
-.page-enter {
-  opacity: 0;
-  transform: translateY(8px);
-}
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #e9ecef;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #6c757d;
-}
-
-/* Ant Design overrides for Bauhaus feel */
-.ant-layout-sider {
-  border-right: 1px solid #e9ecef !important;
-}
-
-.ant-table-thead > tr > th {
-  font-family: "DM Sans", "Noto Sans SC", sans-serif !important;
-  font-weight: 600 !important;
-}
-
-.ant-modal-content {
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Optimization 7: Table row hover color indicator */
 .ant-table-tbody > tr {
   position: relative;
   transition: background 0.15s ease !important;
 }
 .ant-table-tbody > tr:hover > td {
-  background: hsla(210, 50%, 50%, 0.03) !important;
+  background: rgba(161, 98, 7, 0.03) !important; /* Gold accent tint */
 }
 .ant-table-tbody > tr::before {
   content: "";
@@ -114,41 +67,37 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1;
 }
 .ant-table-tbody > tr:hover::before {
-  background: #000;
+  background: #A16207; /* Gold accent */
 }
 
-/* Optimization 8: Success celebration animation */
-@keyframes successPop {
-  0% { transform: scale(0); opacity: 1; }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); opacity: 1; }
-}
-@keyframes confettiFloat {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-40px) rotate(180deg); opacity: 0; }
+.ant-table-thead > tr > th {
+  font-family: "Poppins", "Noto Sans SC", sans-serif !important;
+  font-weight: 600 !important;
 }
 
-.ant-message-success .ant-message-custom-content > .anticon {
-  animation: successPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+/* ===== Sidebar ===== */
+
+.ant-layout-sider {
+  border-right: 1px solid #EEEDED !important;
 }
 
-/* Optimization 4: Page transition handled by CSS — no JS, no flash */
-.ant-layout-content > div > div {
-  animation: contentIn 0.2s ease-out both;
-}
-@keyframes contentIn {
-  from { opacity: 0.85; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+.ant-menu-item-selected {
+  font-weight: 500;
 }
 
-/* Optimization 5: Global search glow on focus */
-.ant-input-affix-wrapper:focus-within {
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06), 0 0 15px rgba(100, 100, 255, 0.06) !important;
+.ant-menu-item-selected::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: #A16207; /* Gold accent indicator */
 }
 
-/* ===== GSAP Breathing System ===== */
+/* ===== Subtle interactions ===== */
 
-/* Sidebar menu item hover: subtle lift */
 .ant-menu-item {
   transition: all 0.2s ease-out !important;
 }
@@ -156,7 +105,29 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(2px);
 }
 
-/* Card title subtle underline animation */
+.ant-tag {
+  transition: transform 0.15s ease-out !important;
+}
+.ant-tag:hover {
+  transform: scale(1.05);
+}
+
+.ant-pagination-item {
+  transition: all 0.2s ease-out !important;
+}
+.ant-pagination-item:hover {
+  transform: translateY(-1px);
+}
+
+.ant-avatar {
+  transition: box-shadow 0.3s ease !important;
+}
+.ant-avatar:hover {
+  box-shadow: 0 0 0 3px rgba(161, 98, 7, 0.12); /* Gold ring */
+}
+
+/* ===== Card title accent ===== */
+
 .ant-card-head-title {
   position: relative;
 }
@@ -167,79 +138,67 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 0;
   height: 2px;
-  background: #000;
+  background: #A16207;
   transition: width 0.3s ease-out;
 }
 .ant-card:hover .ant-card-head-title::after {
   width: 40px;
 }
 
-/* Tag hover micro-scale */
-.ant-tag {
-  transition: transform 0.15s ease-out !important;
+/* ===== Success animation ===== */
+
+.ant-message-success .ant-message-custom-content > .anticon {
+  animation: successPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.ant-tag:hover {
-  transform: scale(1.05);
+@keyframes successPop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
-/* Button ripple-like feedback */
-.ant-btn-primary {
-  position: relative;
-  overflow: hidden;
+/* ===== Page transition (CSS only, no flash) ===== */
+
+.ant-layout-content > div > div {
+  animation: contentIn 0.2s ease-out both;
 }
-.ant-btn-primary::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.2) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-.ant-btn-primary:hover::after {
-  opacity: 1;
+@keyframes contentIn {
+  from { opacity: 0.85; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Breadcrumb / page title entrance */
-h2 {
-  position: relative;
+/* ===== Search glow ===== */
+
+.ant-input-affix-wrapper:focus-within {
+  box-shadow: 0 0 0 2px rgba(161, 98, 7, 0.08), 0 0 12px rgba(161, 98, 7, 0.04) !important;
 }
 
-/* Pagination hover */
-.ant-pagination-item {
-  transition: all 0.2s ease-out !important;
-}
-.ant-pagination-item:hover {
-  transform: translateY(-1px);
+/* ===== Scrollbar ===== */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #EEEDED; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #A8A29E; }
+
+/* ===== Modal shadow ===== */
+
+.ant-modal-content {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Switch toggle smooth */
+/* ===== Input focus ===== */
+
+.ant-input:focus, .ant-input-affix-wrapper-focused {
+  border-color: #A16207 !important;
+}
+
+/* ===== Switch ===== */
+
 .ant-switch {
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
-/* Avatar pulse on hover */
-.ant-avatar {
-  transition: box-shadow 0.3s ease !important;
-}
-.ant-avatar:hover {
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
-}
+/* ===== Skeleton breathing ===== */
 
-/* Tree node hover indent */
-.ant-tree-treenode {
-  transition: padding-left 0.15s ease-out !important;
-}
-.ant-tree-treenode:hover {
-  padding-left: 2px !important;
-}
-
-/* Input focus transition enhancement */
-.ant-input, .ant-input-affix-wrapper, .ant-select-selector {
-  transition: all 0.25s ease-out !important;
-}
-
-/* Skeleton breathing (for loading states) */
 .ant-skeleton-content .ant-skeleton-paragraph > li {
   animation: skeletonBreathe 1.5s ease-in-out infinite !important;
 }

@@ -21,14 +21,14 @@
 }
 
 @keyframes brandBreathe {
-  0%   { background: radial-gradient(circle, hsla(200, 60%, 50%, 0.08) 0%, transparent 70%); }
-  33%  { background: radial-gradient(circle, hsla(280, 60%, 50%, 0.08) 0%, transparent 70%); }
-  66%  { background: radial-gradient(circle, hsla(40, 60%, 50%, 0.08) 0%, transparent 70%); }
-  100% { background: radial-gradient(circle, hsla(200, 60%, 50%, 0.08) 0%, transparent 70%); }
+  0%   { background: radial-gradient(circle, hsla(35, 60%, 50%, 0.08) 0%, transparent 70%); }
+  33%  { background: radial-gradient(circle, hsla(25, 60%, 50%, 0.08) 0%, transparent 70%); }
+  66%  { background: radial-gradient(circle, hsla(45, 60%, 50%, 0.08) 0%, transparent 70%); }
+  100% { background: radial-gradient(circle, hsla(35, 60%, 50%, 0.08) 0%, transparent 70%); }
 }
 
 .brand-text {
-  font-family: "DM Sans", sans-serif;
+  font-family: "Poppins", "Noto Sans SC", sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: #000;
@@ -70,7 +70,7 @@
   bottom: 8px;
   width: 3px;
   border-radius: 0 3px 3px 0;
-  background: #000;
+  background: #A16207;
   animation: indicatorIn 0.3s ease-out;
 }
 

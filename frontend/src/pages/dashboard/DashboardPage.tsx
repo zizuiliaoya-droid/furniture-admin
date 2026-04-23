@@ -19,10 +19,10 @@ function getGreeting() {
 }
 
 const statCards = [
-  { key: "products", label: "产品总数", icon: <AppstoreOutlined />, hue: 210, path: "/products" },
-  { key: "quotes", label: "报价单", icon: <DollarOutlined />, hue: 35, path: "/quotes" },
+  { key: "products", label: "产品总数", icon: <AppstoreOutlined />, hue: 35, path: "/products" },
+  { key: "quotes", label: "报价单", icon: <DollarOutlined />, hue: 25, path: "/quotes" },
   { key: "cases", label: "客户案例", icon: <ProjectOutlined />, hue: 145, path: "/cases" },
-  { key: "shares", label: "分享链接", icon: <ShareAltOutlined />, hue: 280, path: "/shares" },
+  { key: "shares", label: "分享链接", icon: <ShareAltOutlined />, hue: 210, path: "/shares" },
 ];
 
 export default function DashboardPage() {
