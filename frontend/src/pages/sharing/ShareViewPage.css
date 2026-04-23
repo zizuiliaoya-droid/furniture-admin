@@ -1,0 +1,87 @@
+.share-dark-page {
+  min-height: 100vh;
+  background: #121921;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", "Noto Sans SC", sans-serif;
+}
+.share-center {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px;
+}
+.share-lock-wrapper { flex-shrink: 0; }
+.share-lock-svg { width: 120px; height: 160px; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3)); }
+.share-form-card {
+  width: 320px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 36px 28px;
+  transition: border-color 0.5s, box-shadow 0.5s;
+}
+.share-form-title {
+  color: #e8e8e8;
+  font-family: "DM Sans", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.share-form-hint { color: #666; font-size: 13px; text-align: center; margin-bottom: 24px; }
+.share-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+.share-input::placeholder { color: #555; }
+.share-input:focus {
+  border-color: hsla(var(--focus-hue, 200), 70%, 55%, 0.6);
+  box-shadow: 0 0 0 3px hsla(var(--focus-hue, 200), 70%, 55%, 0.15);
+}
+.share-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.15s;
+}
+.share-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.share-btn:active { transform: scale(0.98); }
+.share-content {
+  max-width: 960px;
+  width: 100%;
+  padding: 40px 24px;
+}
+.share-content-title {
+  color: #e8e8e8;
+  font-family: "DM Sans", sans-serif;
+  font-size: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.share-content-card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color 0.5s, box-shadow 0.5s;
+}

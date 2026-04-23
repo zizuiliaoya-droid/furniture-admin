@@ -14,7 +14,7 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 
-export default function Sidebar() {
+export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuthStore();
@@ -89,6 +89,7 @@ export default function Sidebar() {
       defaultOpenKeys={["documents"]}
       items={menuItems}
       onClick={({ key }) => navigate(key)}
+      inlineCollapsed={collapsed}
       style={{
         borderRight: "none",
         padding: "8px 0",

@@ -4,7 +4,7 @@ import { Spin } from "antd";
 import MainLayout from "./layouts/MainLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
+import LoginPage from "./pages/auth/LoginPage";
 const UserManagementPage = lazy(() => import("./pages/auth/UserManagementPage"));
 const ProductListPage = lazy(() => import("./pages/products/ProductListPage"));
 const ProductFormPage = lazy(() => import("./pages/products/ProductFormPage"));
@@ -20,6 +20,7 @@ const QuoteFormPage = lazy(() => import("./pages/quotes/QuoteFormPage"));
 const QuoteDetailPage = lazy(() => import("./pages/quotes/QuoteDetailPage"));
 const ShareManagementPage = lazy(() => import("./pages/sharing/ShareManagementPage"));
 const ShareViewPage = lazy(() => import("./pages/sharing/ShareViewPage"));
+const DashboardPage = lazy(() => import("./pages/dashboard/DashboardPage"));
 
 function Loading() {
   return (
@@ -36,7 +37,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
-            <Route index element={<Navigate to="/products" replace />} />
+            <Route index element={<DashboardPage />} />
             <Route path="products" element={<ProductListPage />} />
             <Route path="products/new" element={<ProtectedRoute requireAdmin><ProductFormPage /></ProtectedRoute>} />
             <Route path="products/:id" element={<ProductDetailPage />} />

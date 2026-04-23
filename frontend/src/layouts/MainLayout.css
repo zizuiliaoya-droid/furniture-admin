@@ -1,0 +1,80 @@
+.sider-brand {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e9ecef;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: brandBreathe 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes brandBreathe {
+  0%   { background: radial-gradient(circle, hsla(200, 60%, 50%, 0.08) 0%, transparent 70%); }
+  33%  { background: radial-gradient(circle, hsla(280, 60%, 50%, 0.08) 0%, transparent 70%); }
+  66%  { background: radial-gradient(circle, hsla(40, 60%, 50%, 0.08) 0%, transparent 70%); }
+  100% { background: radial-gradient(circle, hsla(200, 60%, 50%, 0.08) 0%, transparent 70%); }
+}
+
+.brand-text {
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
+  transition: font-size 0.3s;
+  white-space: nowrap;
+}
+
+.brand-text-collapsed {
+  font-size: 20px;
+  letter-spacing: 0.05em;
+}
+
+.sider-collapse-btn {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.sider-collapse-btn:hover {
+  color: #333;
+}
+
+/* Active menu item color indicator */
+.ant-menu-item-selected::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: #000;
+  animation: indicatorIn 0.3s ease-out;
+}
+
+@keyframes indicatorIn {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}

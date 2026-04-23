@@ -92,3 +92,56 @@ h1, h2, h3, h4, h5, h6 {
 .ant-modal-content {
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08) !important;
 }
+
+/* Optimization 7: Table row hover color indicator */
+.ant-table-tbody > tr {
+  position: relative;
+  transition: background 0.15s ease !important;
+}
+.ant-table-tbody > tr:hover > td {
+  background: hsla(210, 50%, 50%, 0.03) !important;
+}
+.ant-table-tbody > tr::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: transparent;
+  transition: background 0.2s ease;
+  z-index: 1;
+}
+.ant-table-tbody > tr:hover::before {
+  background: #000;
+}
+
+/* Optimization 8: Success celebration animation */
+@keyframes successPop {
+  0% { transform: scale(0); opacity: 1; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes confettiFloat {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-40px) rotate(180deg); opacity: 0; }
+}
+
+.ant-message-success .ant-message-custom-content > .anticon {
+  animation: successPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Optimization 4: Page content fade-in */
+.ant-layout-content > * {
+  animation: pageIn 0.25s ease-out;
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Optimization 5: Global search glow on focus */
+.ant-input-affix-wrapper:focus-within {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06), 0 0 15px rgba(100, 100, 255, 0.06) !important;
+}
