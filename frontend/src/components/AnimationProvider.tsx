@@ -1,62 +1,24 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 
-const SAME_GROUP = [
-  ["/documents/design", "/documents/training", "/documents/certificates"],
-];
-
-function isSameGroup(a: string, b: string) {
-  return SAME_GROUP.some((g) => g.includes(a) && g.includes(b));
-}
-
+/**
+ * 全局动效增强器 — 轻量版
+ * 
+ * 设计原则：
+ * - 绝不动容器的 opacity（避免整页闪烁）
+ * - 只对弹出层（Modal/Dropdown/Message）做入场动画
+ * - 页面内容的过渡交给 CSS animation，不用 GSAP
+ */
 export default function AnimationProvider({ children }: { children: React.ReactNode }) {
   const location = useLocation();
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const prevPath = useRef("");
 
+  // 给 body 加一个 data 属性，CSS 可以用它触发动画
   useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-
-    const from = prevPath.current;
-    const to = location.pathname;
-    prevPath.current = to;
-
-    // First render or same-group: skip
-    if (!from || isSameGroup(from, to)) return;
-
-    // Container quick fade — use set + to pattern (no fromTo to avoid flash)
-    gsap.set(el, { opacity: 0.6 });
-    gsap.to(el, { opacity: 1, duration: 0.2, ease: "power1.out" });
-
-    // Stagger only top-level headings and dashboard cards
-    requestAnimationFrame(() => {
-      if (!wrapRef.current) return;
-      const targets = wrapRef.current.querySelectorAll(
-        ":scope > div > h2, :scope > h2, .stat-card, .dashboard-greeting"
-      );
-      const items = Array.from(targets).slice(0, 10);
-      if (items.length === 0) return;
-
-      items.forEach((t) => {
-        (t as HTMLElement).style.opacity = "0";
-        (t as HTMLElement).style.transform = "translateY(10px)";
-      });
-
-      gsap.to(items, {
-        opacity: 1,
-        y: 0,
-        duration: 0.3,
-        ease: "power2.out",
-        stagger: 0.04,
-      });
-    });
-
-    // No cleanup — elements stay visible
+    document.body.setAttribute("data-page-key", location.pathname);
   }, [location.pathname]);
 
-  // Modal / Dropdown / Message pop-in
+  // 弹出层动画（这些是新增 DOM 节点，不会闪）
   useEffect(() => {
     const obs = new MutationObserver((muts) => {
       for (const m of muts) for (const n of m.addedNodes) {
@@ -73,5 +35,5 @@ export default function AnimationProvider({ children }: { children: React.ReactN
     return () => obs.disconnect();
   }, []);
 
-  return <div ref={wrapRef}>{children}</div>;
+  return <>{children}</>;
 }
