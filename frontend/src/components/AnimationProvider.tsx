@@ -13,8 +13,7 @@ function isSameGroup(a: string, b: string) {
 export default function AnimationProvider({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const wrapRef = useRef<HTMLDivElement>(null);
-  const prevPath = useRef(location.pathname);
-  const animatedEls = useRef<Element[]>([]);
+  const prevPath = useRef("");
 
   useEffect(() => {
     const el = wrapRef.current;
@@ -24,54 +23,40 @@ export default function AnimationProvider({ children }: { children: React.ReactN
     const to = location.pathname;
     prevPath.current = to;
 
-    // Kill previous tweens on tracked elements, then force them visible
-    if (animatedEls.current.length > 0) {
-      animatedEls.current.forEach((target) => {
-        gsap.killTweensOf(target);
-        gsap.set(target, { clearProps: "all" });
-      });
-      animatedEls.current = [];
-    }
-    gsap.killTweensOf(el);
-    gsap.set(el, { clearProps: "all" });
+    // First render or same-group: skip
+    if (!from || isSameGroup(from, to)) return;
 
-    // Same-group: no animation
-    if (isSameGroup(from, to)) return;
+    // Container quick fade — use set + to pattern (no fromTo to avoid flash)
+    gsap.set(el, { opacity: 0.6 });
+    gsap.to(el, { opacity: 1, duration: 0.2, ease: "power1.out" });
 
-    // Container quick fade
-    gsap.fromTo(el,
-      { opacity: 0.6 },
-      { opacity: 1, duration: 0.2, ease: "power1.out" }
-    );
-
-    // Stagger lightweight elements only (no tables, no heavy stuff)
+    // Stagger only top-level headings and dashboard cards
     requestAnimationFrame(() => {
       if (!wrapRef.current) return;
       const targets = wrapRef.current.querySelectorAll(
-        ":scope > div > h2, :scope > h2, .stat-card, .dashboard-greeting, :scope > .ant-card"
+        ":scope > div > h2, :scope > h2, .stat-card, .dashboard-greeting"
       );
       const items = Array.from(targets).slice(0, 10);
-      animatedEls.current = items;
+      if (items.length === 0) return;
 
-      if (items.length > 0) {
-        gsap.fromTo(items,
-          { opacity: 0, y: 10 },
-          {
-            opacity: 1, y: 0,
-            duration: 0.3, ease: "power2.out",
-            stagger: 0.04,
-            onComplete: () => {
-              // Ensure everything is fully visible after animation
-              items.forEach((t) => gsap.set(t, { clearProps: "all" }));
-              animatedEls.current = [];
-            },
-          }
-        );
-      }
+      items.forEach((t) => {
+        (t as HTMLElement).style.opacity = "0";
+        (t as HTMLElement).style.transform = "translateY(10px)";
+      });
+
+      gsap.to(items, {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        ease: "power2.out",
+        stagger: 0.04,
+      });
     });
+
+    // No cleanup — elements stay visible
   }, [location.pathname]);
 
-  // Modal / Dropdown / Message
+  // Modal / Dropdown / Message pop-in
   useEffect(() => {
     const obs = new MutationObserver((muts) => {
       for (const m of muts) for (const n of m.addedNodes) {
